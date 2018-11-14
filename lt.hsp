@@ -1,0 +1,68 @@
+#packopt title "LT2"
+#epack "start.ax"
+all=""
+ogg=""
+#include "ovplay.as"
+ov_init 44100,2
+*main
+cls
+title "Looping tester 2(Rewrited)"
+button "Test the loops", *tl
+button "Help", *help
+button "Website", *ws
+button "Exit", *exit
+stop
+*tl
+cls
+title "Looping tester 2(Rewrited)"
+button "Check Ogg file", *oggon
+button "Check other file", *other
+button "Back to main menu", *main
+button "Exit", *exit
+stop
+*oggon
+dialog "ogg",16,"select the file to check."
+ogg=refstr
+ov_load ""+ogg+"",2
+cls
+dialog "File loaded, press enter to start listening."
+title "Playing looped sound, to stop and back to the previous menu, press the space"
+ov_loop 2
+button "Stop", *ostop
+stop
+*ostop
+ov_stop 2
+goto *tl
+*again
+dialog "File has been not selected, please select file in next time."
+goto *main
+stop
+*other
+cls
+dialog "",16,"select the file to check."
+all=refstr
+dialog "File loaded."
+mmload ""+all+"",0,1
+goto *pal
+stop
+*pal
+cls
+title "Playing looped sound, to stop and back to the previous menu, press the space"
+mmplay 0
+button "Stop", *lstop
+stop
+*lstop
+mmstop
+goto *tl
+*help
+cls
+dialog "The application allows you to check if the sound file is looping correctly."
+dialog "Version: 2. Author: Dash. Application was rewritten from BGT to HSP (hot soup processor) programming language."
+goto *main
+stop
+*ws
+exec "http://tdprograms.tk/",16
+goto *main
+stop
+*exit
+end
