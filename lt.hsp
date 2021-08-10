@@ -6,7 +6,7 @@ ogg=""
 ov_init 44100,2
 *main
 cls
-title "Looping tester 2(Rewrited)"
+title "Looping tester 2.0 (Rewrited)"
 button "Test the loops", *tl
 button "Help", *help
 button "Website", *ws
@@ -14,16 +14,18 @@ button "Exit", *exit
 stop
 *tl
 cls
-title "Looping tester 2(Rewrited)"
+title "Looping tester 2.0(Rewrited)"
 button "Check Ogg file", *oggon
 button "Check other file", *other
 button "Back to main menu", *main
 button "Exit", *exit
 stop
 *oggon
-dialog "ogg",16,"select the file to check."
+dialog "ogg",16,"OGG files"
 ogg=refstr
 ov_load ""+ogg+"",2
+if stat = 0 : { dialog "File not selected"
+goto *tl }
 cls
 dialog "File loaded, press enter to start listening."
 title "Playing looped sound, to stop and back to the previous menu, press the space"
@@ -33,14 +35,13 @@ stop
 *ostop
 ov_stop 2
 goto *tl
-*again
-dialog "File has been not selected, please select file in next time."
-goto *main
 stop
 *other
 cls
 dialog "",16,"select the file to check."
 all=refstr
+if stat = 0 : { dialog "File not selected"
+goto *tl }
 dialog "File loaded."
 mmload ""+all+"",0,1
 goto *pal
@@ -57,7 +58,8 @@ goto *tl
 *help
 cls
 dialog "The application allows you to check if the sound file is looping correctly."
-dialog "Version: 2. Author: Dash. Application was rewritten from BGT to HSP (hot soup processor) programming language."
+dialog "Version: 2.1 Author: Dash. Application was rewritten from BGT to HSP (hot soup processor) programming language."
+dialog "Changes in new version: After select test ogg files, only ogg files will be displayed."
 goto *main
 stop
 *ws
